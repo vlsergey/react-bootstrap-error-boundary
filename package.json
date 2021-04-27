@@ -1,0 +1,48 @@
+{
+  "name": "@vlsergey/react-bootstrap-error-boundary",
+  "version": "0.0.1",
+  "description": "Ready-to-use error boundary with Bootstrap Alert as error text display",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "scripts": {
+    "clean": "rimraf lib/",
+    "build": "cross-env NODE_ENV=production tsc -p ./src/tsconfig-cjs.json && cross-env NODE_ENV=production tsc -p ./src/tsconfig-esm.json",
+    "build:watch": "cross-env NODE_ENV=development tsc -w -p ./src",
+    "flow:check": "flow check",
+    "flow:status": "flow status",
+    "eslint:check": "eslint --ignore-pattern \"!.eslintrc.js\" .eslintrc.js karma.conf.js src/**/*.ts* test/**/*.js test/**/*.ts*",
+    "eslint:fix": "eslint --ignore-pattern \"!.eslintrc.js\" --fix .eslintrc.js karma.conf.js src/**/*.ts* test/**/*.js test/**/*.ts*",
+    "eslint:watch": "esw --color --watch --ext .js --ext .jsx --ext .ts --ext .tsx --ignore-pattern \"!.eslintrc.js\" --fix .eslintrc.js karma.conf.js src/**/*.ts* test/**/*.ts*",
+    "test": "cross-env NODE_ENV=development karma start karma.conf.js --single-run",
+    "test:watch": "cross-env NODE_ENV=development karma start karma.conf.js --no-single-run",
+    "test:watch:chrome": "cross-env NODE_ENV=development cross-env karma start karma.conf.js --no-single-run --browsers Chrome",
+    "preversion": "npm run eslint:fix && npm test && npm run clean && npm run build",
+    "version": "npm publish --access=public",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlsergey/react-bootstrap-error-boundary.git"
+  },
+  "keywords": [
+    "react",
+    "error",
+    "bootstrap",
+    "alert",
+    "vlsergey"
+  ],
+  "author": "Sergey Vladimirov <vlsergey@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vlsergey/react-bootstrap-error-boundary/issues"
+  },
+  "homepage": "https://github.com/vlsergey/react-bootstrap-error-boundary#readme",
+  "devDependencies": {
+    "@vlsergey/js-config": "^1.1.0",
+    "react-bootstrap": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.0",
+    "react-bootstrap": ">=1.0"
+  }
+}
