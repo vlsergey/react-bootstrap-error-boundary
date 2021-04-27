@@ -2,8 +2,9 @@ import React, { ErrorInfo, PureComponent, ReactNode } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 export interface PropsType {
-  logToConsole: boolean;
-  textOnError: ( error : unknown ) => ReactNode;
+  logToConsole?: boolean;
+  errorMessage?: ( error : unknown ) => ReactNode;
+  errorMessagePrefix?: ReactNode;
   variant?: string;
 }
 
@@ -16,19 +17,21 @@ export default class ErrorBoundary
   extends PureComponent<PropsType, StateType> {
 
   static defaultProps = {
+    errorMessagePrefix: 'Error occured: ',
     logToConsole: true,
-    textOnError: ( error : unknown ) : ReactNode => <>
-      {'Error occured: '}
-      { typeof ( error as {message?: string} ).message === 'string'
-        ? ( error as {message?: string} ).message
-        : JSON.stringify( error ) }
-    </>,
     variant: 'danger',
   }
 
   static getDerivedStateFromError( error : unknown ) : Partial<StateType> {
     return { hasError: true, error };
   }
+
+  private defaultErrorMessage = ( error:unknown ) : ReactNode => <>
+    {this.props.errorMessagePrefix}
+    { typeof ( error as {message?: string} ).message === 'string'
+      ? ( error as {message?: string} ).message
+      : JSON.stringify( error ) }
+  </>;
 
   state : StateType = {
     error: null,
@@ -46,7 +49,7 @@ export default class ErrorBoundary
   render() : ReactNode {
     if ( this.state.hasError ) {
       return <Alert variant={this.props.variant}>
-        {this.props.textOnError( this.state.error )}
+        {( this.props.errorMessage || this.defaultErrorMessage )( this.state.error )}
       </Alert>;
     }
 

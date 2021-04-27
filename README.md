@@ -30,14 +30,18 @@ import ErrorBoundary from '@vlsergey/react-bootstrap-error-boundary';
 ```
 
 # Props
-| Property        | Type    | Default value | Description |
-| --------------- | ------- | :-------------:| ----------- |
-| logToConsole    | boolean | `true`        | Log error and react error info to browser console |
-| textOnError     | ( error : unknown ) : ReactNode | <code>Error occured: (error)</code> | Text (react node) to display on error. Defined as function of |
-| variant         | See [bootstrap Alert](https://react-bootstrap.github.io/components/alerts/) variants | `'danger'` | Alert variant to display |
+| Property           | Type    | Default value | Description |
+| ------------------ | ------- | :-------------:| ----------- |
+| logToConsole       | boolean | `true`        | Log error and react error info to browser console |
+| errorMessage       | ( error : unknown ) : ReactNode | <code>(prefix)(error)</code> | Text (react node) to display on error as Alert children. Defined as function of error. |
+| errorMessagePrefix | string  | `"Error occured: "` | Prefix to display before error message. Ignored if `errorMessage` function is provided. |
+| variant            | See [bootstrap Alert](https://react-bootstrap.github.io/components/alerts/) variants | `'danger'` | Alert variant to display |
 
 # Changelog
 Unspecified minor versions are for dependencies updates.
+
+## 2.0.0
+* ✨ Allow to change prefix as string without redefining whole render message function.
 
 ## 1.0.0
 * 🎉 Initial version
