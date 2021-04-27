@@ -5,6 +5,7 @@ export interface PropsType {
   logToConsole?: boolean;
   errorMessage?: ( error : unknown ) => ReactNode;
   errorMessagePrefix?: ReactNode;
+  errorMessageSuffix?: ReactNode;
   variant?: string;
 }
 
@@ -18,6 +19,7 @@ export default class ErrorBoundary
 
   static defaultProps = {
     errorMessagePrefix: 'Error occured: ',
+    errorMessageSuffix: '',
     logToConsole: true,
     variant: 'danger',
   }
@@ -31,6 +33,7 @@ export default class ErrorBoundary
     { typeof ( error as {message?: string} ).message === 'string'
       ? ( error as {message?: string} ).message
       : JSON.stringify( error ) }
+    {this.props.errorMessageSuffix}
   </>;
 
   state : StateType = {
